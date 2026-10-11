@@ -1,13 +1,12 @@
-FROM php:8.2-apache
+FROM php:8.3-alpine
 
-# Copy source code to the apache web root
+WORKDIR /var/www/html
+
+# Copy source code to the web root
 COPY . /var/www/html/
-
-# Enable apache mod_rewrite if needed (optional for this project but good practice)
-RUN a2enmod rewrite
-
-# Set working directory
-WORKDIR /var/www/html/
 
 # Expose port 80
 EXPOSE 80
+
+# Serve with PHP built-in web server
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
